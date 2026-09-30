@@ -33,8 +33,10 @@ services:
   # React Dashboard Static Site (100% Free CDN)
   - type: web
     name: relic-frontend
-    env: static
+    runtime: static
+    static: true
     buildCommand: cd frontend && npm install && npm run build
+    publishPath: frontend/dist
     staticPublishPath: frontend/dist
     routes:
       - type: rewrite
