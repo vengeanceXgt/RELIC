@@ -1,11 +1,10 @@
 services:
-  # Backend FastAPI Web Service (Free Tier)
+  # Backend FastAPI Web Service
   - type: web
     name: relic-api
     runtime: python
-    region: oregon
     plan: free
-    buildCommand: pip install --upgrade pip && pip install -e .
+    buildCommand: pip install -e .
     startCommand: uvicorn pecff.api.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
@@ -14,37 +13,15 @@ services:
         fromDatabase:
           name: relic-db
           property: connectionString
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: relic-redis
-          property: connectionString
 
-  # Redis Key-Value Store (Free Tier)
-  - type: redis
-    name: relic-redis
-    region: oregon
-    plan: free
-    maxmemoryPolicy: allkeys-lru
-    ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
-
-  # React Dashboard Static Site (100% Free CDN)
+  # React Dashboard Static Site
   - type: web
     name: relic-frontend
     runtime: static
     buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend/dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    staticPublishPath: ./frontend/dist
 
 databases:
-  # PostgreSQL Database (Free Tier)
   - name: relic-db
     databaseName: pecff
-    user: pecff
-    region: oregon
     plan: free
