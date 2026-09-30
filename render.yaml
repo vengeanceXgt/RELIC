@@ -18,8 +18,9 @@ services:
   - type: web
     name: relic-frontend
     runtime: static
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: ./frontend/dist
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
 
 databases:
   - name: relic-db
