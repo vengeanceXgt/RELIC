@@ -1,10 +1,10 @@
 services:
-  # Backend FastAPI Service
+  # Backend FastAPI Service (Free Tier)
   - type: web
     name: relic-api
     runtime: python
     region: oregon
-    plan: starter
+    plan: free
     buildCommand: pip install --upgrade pip && pip install -e .
     startCommand: uvicorn pecff.api.main:app --host 0.0.0.0 --port $PORT
     envVars:
@@ -20,12 +20,12 @@ services:
           name: relic-redis
           property: connectionString
 
-  # Celery Worker
+  # Celery Worker (Free Tier)
   - type: worker
     name: relic-worker
     runtime: python
     region: oregon
-    plan: starter
+    plan: free
     buildCommand: pip install --upgrade pip && pip install -e .
     startCommand: celery -A pecff.tasks.celery_app worker --loglevel=info -Q pecff.ingest,pecff.score,pecff.ml,pecff.report
     envVars:
@@ -41,17 +41,17 @@ services:
           name: relic-redis
           property: connectionString
 
-  # Redis Instance
+  # Redis Instance (Free Tier)
   - type: redis
     name: relic-redis
     region: oregon
-    plan: starter
+    plan: free
     maxmemoryPolicy: allkeys-lru
     ipAllowList:
       - source: 0.0.0.0/0
         description: everywhere
 
-  # React Dashboard (Static Site)
+  # React Dashboard Static Site (100% Free)
   - type: web
     name: relic-frontend
     runtime: static
@@ -63,8 +63,9 @@ services:
         destination: /index.html
 
 databases:
+  # PostgreSQL Database (Free Tier)
   - name: relic-db
     databaseName: pecff
     user: pecff
     region: oregon
-    plan: starter
+    plan: free
