@@ -92,8 +92,11 @@ class TestAdversarialCaptureTorture:
         current_mem, peak_traced_mem = tracemalloc.get_traced_memory()
         tracemalloc.stop()
 
-        rusage = resource.getrusage(resource.RUSAGE_SELF)
-        peak_rss_gib = (rusage.ru_maxrss / (1024**3)) if sys.platform == "darwin" else (rusage.ru_maxrss * 1024 / (1024**3))
+        if resource is not None:
+            rusage = resource.getrusage(resource.RUSAGE_SELF)
+            peak_rss_gib = (rusage.ru_maxrss / (1024**3)) if sys.platform == "darwin" else (rusage.ru_maxrss * 1024 / (1024**3))
+        else:
+            peak_rss_gib = peak_traced_mem / (1024**3)
 
         print(
             f"\n--- ADVERSARIAL TORTURE TEST RESULTS ---\n"
