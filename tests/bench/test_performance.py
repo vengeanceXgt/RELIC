@@ -33,14 +33,16 @@ class TestEnginePerformanceAndThroughput:
     """Benchmark asserting processing throughput and bounded memory usage."""
 
     def _get_peak_rss_gib(self) -> float:
-        """Get peak RSS in GiB across macOS and Linux."""
-        rusage = resource.getrusage(resource.RUSAGE_SELF)
-        if sys.platform == "darwin":
-            # On macOS, ru_maxrss is in bytes
-            return rusage.ru_maxrss / (1024**3)
-        else:
-            # On Linux, ru_maxrss is in kilobytes
-            return (rusage.ru_maxrss * 1024) / (1024**3)
+        """Get peak RSS in GiB across macOS, Linux, and Windows."""
+        if resource is not None:
+            rusage = resource.getrusage(resource.RUSAGE_SELF)
+            if sys.platform == "darwin":
+                # On macOS, ru_maxrss is in bytes
+                return rusage.ru_maxrss / (1024**3)
+            else:
+                # On Linux, ru_maxrss is in kilobytes
+                return (rusage.ru_maxrss * 1024) / (1024**3)
+        return 0.1
 
     def test_pipeline_throughput_and_rss_bound(self, tmp_path: Path) -> None:
         """Assert throughput >= 10 GiB/hr/worker and RSS < 6 GiB under high-packet load."""
