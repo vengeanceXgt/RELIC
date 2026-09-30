@@ -1,5 +1,5 @@
 services:
-  # Backend FastAPI Service (Free Tier)
+  # Backend FastAPI Web Service (Free Tier)
   - type: web
     name: relic-api
     runtime: python
@@ -20,28 +20,7 @@ services:
           name: relic-redis
           property: connectionString
 
-  # Celery Worker (Free Tier)
-  - type: worker
-    name: relic-worker
-    runtime: python
-    region: oregon
-    plan: free
-    buildCommand: pip install --upgrade pip && pip install -e .
-    startCommand: celery -A pecff.tasks.celery_app worker --loglevel=info -Q pecff.ingest,pecff.score,pecff.ml,pecff.report
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.9
-      - key: DATABASE_URL
-        fromDatabase:
-          name: relic-db
-          property: connectionString
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: relic-redis
-          property: connectionString
-
-  # Redis Instance (Free Tier)
+  # Redis Key-Value Store (Free Tier)
   - type: redis
     name: relic-redis
     region: oregon
@@ -51,10 +30,9 @@ services:
       - source: 0.0.0.0/0
         description: everywhere
 
-  # React Dashboard Static Site (100% Free)
-  - type: web
+  # React Dashboard Static Site (100% Free CDN)
+  - type: static
     name: relic-frontend
-    runtime: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/dist
     routes:
