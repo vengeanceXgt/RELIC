@@ -47,12 +47,14 @@ services:
     region: oregon
     plan: starter
     maxmemoryPolicy: allkeys-lru
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere
 
   # React Dashboard (Static Site)
   - type: web
     name: relic-frontend
     runtime: static
-    region: oregon
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/dist
     routes:
