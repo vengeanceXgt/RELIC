@@ -8,7 +8,10 @@ Requirements:
 
 from __future__ import annotations
 
-import resource
+try:
+    import resource
+except ImportError:
+    resource = None
 import sys
 import time
 import tracemalloc

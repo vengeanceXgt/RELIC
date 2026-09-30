@@ -19,9 +19,9 @@ import pytest
 from sklearn.ensemble import IsolationForest
 from sklearn.exceptions import NotFittedError
 
-from pecff.crypto.handshake import TLSHandshakeSummary
-from pecff.ml.features import (
-    SessionFeatureExtractor,
+from pecff.parse.tls_decoder import TLSHandshakeSummary
+from pecff.ml.features import SessionFeatureExtractor
+from pecff.tasks.pipeline import (
     deserialize_handshake_summary,
     serialize_handshake_summary,
 )

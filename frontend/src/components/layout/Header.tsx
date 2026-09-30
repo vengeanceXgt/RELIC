@@ -28,10 +28,9 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="glass-panel" style={{ margin: "12px 16px 8px 16px", padding: "10px 18px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
       {/* Brand */}
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <img src="/relic-logo.png" alt="Relic" style={{ width: 32, height: 32, objectFit: "contain" }} />
-        <img src="/relic-wordmark.png" alt="RELIC" style={{ height: 22, width: "auto", objectFit: "contain" }} />
-        <span style={{ fontSize: "11px", background: "rgba(30, 111, 200, 0.1)", color: "#1e6fc8", border: "1px solid rgba(30, 111, 200, 0.25)", padding: "1px 6px", borderRadius: 4, fontWeight: 700 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <img src="/relic-logo.png" alt="RELIC" style={{ height: 26, width: "auto", objectFit: "contain" }} />
+        <span style={{ fontSize: "11px", background: "rgba(30, 111, 200, 0.1)", color: "#1e6fc8", border: "1px solid rgba(30, 111, 200, 0.25)", padding: "2px 8px", borderRadius: 4, fontWeight: 700, letterSpacing: "0.05em" }}>
           FORENSIC CONSOLE
         </span>
       </div>

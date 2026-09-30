@@ -11,7 +11,10 @@ adversarial conditions:
 from __future__ import annotations
 
 import random
-import resource
+try:
+    import resource
+except ImportError:
+    resource = None
 import sys
 import tracemalloc
 

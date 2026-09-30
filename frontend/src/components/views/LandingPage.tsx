@@ -138,21 +138,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterConsole, onGoTo
           >
             <img
               src="/relic-logo.png"
-              alt="Relic Logo"
-              style={{ width: 24, height: 24, objectFit: "contain" }}
+              alt="RELIC"
+              style={{ height: 22, width: "auto", objectFit: "contain" }}
             />
-            <span
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 14,
-                fontWeight: 800,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-              }}
-              className="text-embossed-light"
-            >
-              RELIC-01
-            </span>
             <span
               className="stamped-label"
               style={{
@@ -646,7 +634,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterConsole, onGoTo
           <img
             src="/relic-logo.png"
             alt="Relic"
-            style={{ width: 22, height: 22, objectFit: "contain", opacity: 0.8 }}
+            style={{ height: 20, width: "auto", objectFit: "contain", opacity: 0.9 }}
           />
           <span
             className="stamped-label"

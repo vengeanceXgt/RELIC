@@ -692,6 +692,10 @@ class SessionFeatureVectorizer:
     @classmethod
     def load(cls, path: Path | str) -> SessionFeatureVectorizer:
         """Load fitted vectorizer artifact from disk."""
+        import pathlib
+        import sys
+        if sys.platform == "win32":
+            pathlib.PosixPath = pathlib.WindowsPath
         p = Path(path)
         if not p.exists():
             raise FileNotFoundError(f"Vectorizer artifact not found: {p}")

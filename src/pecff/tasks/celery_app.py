@@ -110,6 +110,10 @@ def load_ml_model_from_disk(model_path: Path | str | None = None) -> Any | None:
         return None
 
     try:
+        import pathlib
+        import sys
+        if sys.platform == "win32":
+            pathlib.PosixPath = pathlib.WindowsPath
         loaded = joblib.load(target_path)
         # Unwrap dictionary if stored with metadata
         model = loaded["model"] if isinstance(loaded, dict) and "model" in loaded else loaded
